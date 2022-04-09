@@ -1,0 +1,193 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+#map {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+} 
+
+/* scheda contenitore */
+#scheda {
+  z-index: 9999;
+  padding: 8px 8px;
+  width: 28%;
+  height: 39%;
+  font-family: "Open Sans", sans-serif, monospace;
+  font-size: medium;
+  position: relative;
+  top: 30%;
+  left: 15%;
+  transform: translate(-30%, -15%); 
+  background-color: rgba(255, 255, 255, 0.4);;
+  border-radius: 15px;
+  box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.2);
+  padding-bottom: 1rem;
+  background-image: linear-gradient(
+    white max(2rem, 10vh),
+    var(--card-gradient)
+  );
+  overflow: hidden;
+  --card-blend-mode: overlay;
+  --card-gradient: rgba(255, 255, 255, 0.7);
+/*
+  --card-gradient: #808af0, #96c6ea;
+*/
+}
+
+/* campo lista documenti */
+.wrapper-documenti {
+  border-radius: 3px;
+  padding: 15px 10px;
+  width: 90%;
+  height: 60%;
+  font: inherit;
+  text-align: left;
+  line-height: 1.2em;
+  align-content: center;
+  display: block;
+  position: absolute;
+  bottom: 32%;
+  left: 5%; 
+}
+
+/* testo del modale */
+#campo-informazioni {
+  width: 90%;
+  cursor: pointer;
+  color: #366aa3;
+  margin: 2px;
+  padding: 3px 50px;
+
+  font: inherit;
+  font-size: 90%;
+  font-weight: 400;
+  text-align: left;
+  align-content: center;
+  line-height: 1em;
+
+  display: block;
+  position: absolute;
+  bottom: 4%;
+  left: 5%; 
+}
+
+#bottone {
+  cursor: pointer;
+  width: 85%;
+  background: rgba(8, 43, 243, 0.514);
+  border-radius: 20px;
+  border: none;
+  padding: 10px;
+
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+  font: inherit;
+  font-weight: bold;
+
+  text-align: 30px;
+  display: block;
+  position: absolute;
+  bottom: 15%;
+  left: 8%; 
+}
+
+
+#campo-documenti {
+  padding-left: 35px;
+  display: inline-block;
+  list-style: none;
+  list-style-type: "> ";
+  font-weight: bold;
+  color: #202124;
+}
+
+#bottone:hover {  background-color: rgba(8, 43, 243, 0.719);}
+
+/**** contenuto modale ****/
+.modale {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 9999; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  font-family: "Open Sans", sans-serif, monospace;
+  font-size: medium;
+}
+
+.modale-contenuto {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  position: relative;
+  margin: auto;
+  width: 60%;
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  font: inherit;
+}
+
+/* animazioni */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* bottone chiusura */
+.modale-chiusura {
+  color: #202124;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.modale-chiusura:hover,
+.modale-chiusura:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#modale-header, .modale-footer {
+  padding: 10px 10px;
+  margin: 5px 5px;
+  background-color: white;
+  color: #366aa3;}
+
+#modale-body {
+  padding: 10px 10px;
+  margin: 5px 5px;
+}
+
+/* Responsive layout:
+quando la larghezza schermo < 900px, la scheda contente i link
+ai documenti si adatta automaticamente*/
+@media screen and (max-width: 900px) {
+    #scheda {   
+      width: 90%;
+      height: 40%;
+      position: absolute;
+      top: 80%;
+      left: 77%;
+      transform: translate(-80%, -77%);
+    }
+} 

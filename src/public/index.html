@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Localizza Documenti</title>
+    <link rel="icon" href="img/icona.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <!-- Leaflet CSS e JS: -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+</head>
+
+<body>
+    <div class="container">
+        <main>
+            <div id="map">
+                <div id="scheda">
+                    <div class="wrapper-documenti">
+                        <ul id="campo-documenti">
+                            <p>La web app permette di localizzarsi e verificare la presenza di documenti
+                                disponibili.<br> <br>
+                                Premi il bottone per provare.
+                            </p>
+                        </ul>
+                    </div>
+                    <!-- Trigger del modale -->
+                    <div id="campo-informazioni">
+                        flask-georest
+                    </div>
+                    <button id="bottone">Localizzami &#9737;</button>
+                </div>
+                <!-- Modale -->
+                <div id="id-modale" class="modale">
+                    <div class="modale-contenuto">
+                        <div id="modale-header">
+                            <span class="modale-chiusura">&times;</span>
+                            <h2>flask-georest</h2>
+                        </div>
+                        <div id="modale-body">
+                            <strong>flask-georest</strong> è una web app che, per mezzo di dati spaziali e delle
+                            attuali tecnologie di posizionamento,
+                            permette l'accesso a dei documenti digitali a un dispostivo che si connette ad Internet
+                            attraverso un browser web
+                            <br>
+                            <br>
+                            Se sono presenti documenti nella tua posizione:<br>
+                            - in <strong style="color:green;">verde</strong> la regione effettiva in cui
+                            sono disponibili
+                            documenti<br>
+                            - in <strong style="color:dodgerblue;">blu</strong>, se presente, la regione in cui quei
+                            documenti sono comunque accessibili
+                        </div>
+                        <div id="modale-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/index.js"></script>
+    <script src="js/mappa.js"></script>
+    <script src="js/finestraModale.js"></script>
+    <script src="js/eventoLocalizzazione.js"></script>
+</body>
+
+</html>
