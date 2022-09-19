@@ -1,9 +1,18 @@
-const access_token = '<mapbox-token>'
+const access_token = 'token'
+
+const coordsIniziali = [40.9927, 15.64401]
+const coordsFiera = [
+    [
+        0,
+        0
+
+    ],
+]
 
 let layers = []
 
 // Inizializzazione mappa su Italia
-let map = new L.map('map').setView([41.88, 12.47], 6)
+let map = new L.map('map').setView(coordsIniziali, 18)
 
 // Creazione tileLayer mapbox
 let opzioniLayer = {
@@ -16,6 +25,8 @@ let opzioniLayer = {
 }
 
 let tileLayer = new L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', opzioniLayer).addTo(map)
+
+let posizioneFiera = L.polygon(coordsFiera, { color: '#99d98c', weight: 2, fillOpacity: 0.6 }).addTo(map)
 
 function aggiornaMappa(body) {
     L.geoJSON(body, {
@@ -33,8 +44,8 @@ function aggiornaMappa(body) {
                     coordsDocs = L.GeoJSON.coordsToLatLngs(posizioneTrovata.geometry.coordinates[0], 1, false)
                     coordsRegioneValidita = L.GeoJSON.coordsToLatLngs(posizioneTrovata.geometry.coordinates[1], 1, false)
 
-                    let posizioneDocumenti = L.polygon(coordsDocs, { color: '#00ff00', weight: 2, fillOpacity: 0.6 })
-                    let regioneValidita = L.polygon(coordsRegioneValidita, { color: '#0000ff', weight: 0, opacity: 0.5, fillOpacity: 0.1 })
+                    let posizioneDocumenti = L.polygon(coordsDocs, { color: '#ff6b6b', weight: 2, opacity: 0.7, fillOpacity: 0.0 })
+                    let regioneValidita = L.polygon(coordsRegioneValidita, { color: '#ffe66d', weight: 2, opacity: 0.7, fillOpacity: 0.0 })
 
                     posizioneDocumenti.addTo(map)
                     layers.push(posizioneDocumenti)
@@ -68,10 +79,10 @@ function aggiornaMappa(body) {
 }
 
 // marker alternativo. Da aggiungere nella creazione del marker
-let iconaMarker = L.icon({
-    iconUrl: '../img/marker.png',
-    iconSize: [100, 87], // dimensioni icona
-});
+// let iconaMarker = L.icon({
+//     iconUrl: '../img/marker.png',
+//     iconSize: [100, 87], // dimensioni icona
+// });
 
 function aggiornaPosizioneClient(body) {
     L.geoJSON(body, {
@@ -85,7 +96,7 @@ function aggiornaPosizioneClient(body) {
                 .setContent('<p>' + 'La tua posizione:' + '<br>' + clientLat.toFixed(4) + ' ' + clientLon.toFixed(4) + '</p>')
                 .openOn(map)
             marker.bindPopup(popup, { showOnMouseOver: true })
-            map.setView([clientLat, clientLon], 15)
+            map.setView([clientLat - 0.0003, clientLon], 20)
         },
     })
 }

@@ -11,10 +11,14 @@ from python.utilita.RestUtility import RestUtility
 from src.python.modello.dto.PosizioneClient import PosizioneClient
 from src.python.persistenza.DAOPosizioneClient import DAOPosizioneClient
 
+import random
+
 logging.config.fileConfig(
     fname='config/logging.conf', disable_existing_loggers=True)
 console_logger = logging.getLogger('consoleLogger')
 requests_logger = logging.getLogger('requestsLogger')
+codes_logger = logging.getLogger('codesLogger')
+codes_log_path = "<path to codes.log>"
 dao_posizione = DAOPosizione()
 dao_documento = DAODocumento()
 dao_client = DAOPosizioneClient()
@@ -90,11 +94,29 @@ class ControlloDocumento(Resource):
                 RestUtility.crea_404(
                     "Nessun documento trovato con questo codice")
             href = documento.href.get(href_id)
+            # verifica che l'utente non abbia già scaricato il voucher
+            file = open(codes_log_path, "r")
+            content = file.readlines()
+            storico = content[-5:]
+            for riga in storico:
+                ip_codice = riga.partition(":")
+                if client_ip == ip_codice[0]:
+                    documento = dao_documento.find_by_hrefid("no-vaucher")
+                    gia_scaricato = documento.href.get("no-vaucher")
+                    console_logger.info(
+                        f"{client_ip} {request.method} {request.full_path} {200} esiste -> {ip_codice[2]}")
+                    requests_logger.info(
+                        f"{client_ip} {request.method} {request.full_path} {200} esiste -> {ip_codice[2]}")
+                    return send_file(gia_scaricato, download_name="gia-scaricato.pdf")
+            codice_voucher = f"{random.randint(0,99)}-{random.randint(0,99)}-{random.randint(0,99)}"
+            codes_logger.info(
+                f"{client_ip}:{codice_voucher}")
             console_logger.info(
-                f"{client_ip} {request.method} {request.full_path} {200}")
+                f"{client_ip} {request.method} {request.full_path} {200} -> {codice_voucher}")
             requests_logger.info(
-                f"{client_ip} {request.method} {request.full_path} {200}")
-            return send_file(href)
+                f"{client_ip} {request.method} {request.full_path} {200} -> {codice_voucher}")
+            return send_file(href, download_name=f"{codice_voucher}.pdf")
+
         except FileNotFoundError as ex:
             console_logger.error(
                 f"{client_ip} {request.method} {request.full_path} {404} {ex}")
@@ -109,3 +131,5 @@ class ControlloDocumento(Resource):
                 f" ###### {request.full_path} {traceback.format_exc()}")
             return RestUtility.crea_errore(
                 "Non è stato possibile eseguire l'operazione")
+        finally:
+            file.close()

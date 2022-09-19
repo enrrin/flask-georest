@@ -75,9 +75,12 @@ function mostraDocumentiDisponibili(listaDocumenti) {
         listaDocumenti.forEach(documento => {
             if (!setDocumenti.includes(documento.nome)) {
                 console.log(setDocumenti)
-                let link = `<li><a href=/api/documenti/${documento.href} style="color: #323639">${documento.nome}</a><br></li>`
+                schedaInformazioni.innerHTML += `Grazie per aver visitato -nome-!<br><br> Scarica il tuo voucher e mostra il codice allo stand UNIBAS 
+                per ricevere il tuo gadget!<br><br>`
+                let link = `<li><a href=/api/documenti/${documento.href} style="color: #ff6b6b">${documento.nome}</a><br></li>`
                 schedaInformazioni.innerHTML += link
                 setDocumenti.push(documento.nome)
+
             }
         })
     } else {
