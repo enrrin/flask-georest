@@ -48,7 +48,7 @@ class DAOPosizioneClient(PosizioneClient):
         distanza = geod.inv(
             ip.longitude, ip.latitude, client.lon, client.lat)
         distanza_in_km = int(distanza[2] / 1000)
-        if distanza_in_km > 500:
+        if distanza_in_km > 2000:
             return True
         return False
 

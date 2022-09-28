@@ -17,7 +17,8 @@ class Config(object):
         db=os.environ.get("POSTGRES_DB"))
     # Silence the deprecation warning
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
+    # load secret key for session auth
+    SECRET_KEY = os.environ.get("SECRET_KEY")
     # API settings
     API_PAGINATION_PER_PAGE = 10
 

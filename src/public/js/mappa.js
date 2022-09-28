@@ -1,11 +1,31 @@
-const access_token = 'token'
+const access_token = 'pk.eyJ1IjoiZXJ4eXoiLCJhIjoiY2t1eHl2cjM4MGE0bzJxcGJkcjd4cDk2YSJ9.sONz58Hdx_mw47981-iR4g'
 
-const coordsIniziali = [40.9927, 15.64401]
+const coordsIniziali = [41.93179, 12.52085]
 const coordsFiera = [
     [
-        0,
-        0
+        [
+            41.93280158070984,
+            12.520530223846436
+        ],
+        [
+            41.932330670868026,
+            12.520036697387695
 
+        ],
+        [
+            41.93179989543795,
+            12.520852088928223
+
+        ],
+        [
+            41.932278790757586,
+            12.52142608165741
+
+        ],
+        [
+            41.93280158070984,
+            12.520530223846436
+        ]
     ],
 ]
 

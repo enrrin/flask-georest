@@ -9,10 +9,14 @@ from src.python.controllo.ControlloDocumento import ControlloDocumento
 
 from werkzeug.middleware.proxy_fix import ProxyFix
 
+from datetime import timedelta
+
 
 app = Flask(__name__, static_folder='public', static_url_path='')
 app.config.from_object(get_config('env'))
 db.init_app(app)
+
+app.permanent_session_lifetime = timedelta(days=1)
 
 
 @app.route('/')
