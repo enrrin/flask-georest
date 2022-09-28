@@ -3,5 +3,7 @@ POSTGRES_USER = "user"
 POSTGRES_PASSWORD = "password"
 POSTGRES_DB = "db"
 
+SECRET_KEY = "secret"
+
 IP2LOCBIN = "ip2locationdb.BIN"
 IP2PROXYBIN = "ip2proxydb.BIN"
