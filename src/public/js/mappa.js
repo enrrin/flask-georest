@@ -1,52 +1,40 @@
 const access_token = 'pk.eyJ1IjoiZXJ4eXoiLCJhIjoiY2t1eHl2cjM4MGE0bzJxcGJkcjd4cDk2YSJ9.sONz58Hdx_mw47981-iR4g'
 
-const coordsIniziali = [41.93179, 12.52085]
-const coordsFiera = [
-    [
-        [
-            41.93280158070984,
-            12.520530223846436
-        ],
-        [
-            41.932330670868026,
-            12.520036697387695
-
-        ],
-        [
-            41.93179989543795,
-            12.520852088928223
-
-        ],
-        [
-            41.932278790757586,
-            12.52142608165741
-
-        ],
-        [
-            41.93280158070984,
-            12.520530223846436
-        ]
-    ],
-]
-
-let layers = []
-
-// Inizializzazione mappa su Italia
-let map = new L.map('map').setView(coordsIniziali, 18)
-
-// Creazione tileLayer mapbox
-let opzioniLayer = {
-    attribution: 'Map data &copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox/streets-v11',
-    tileSize: 512,
-    zoomOffset: -1,
-    accessToken: access_token,
+function inserisciSvgs() {
+    let ball = document.querySelector('#ball')
+    let ballBounds = L.latLngBounds([coordsCampo[0], coordsCampo[2]])
+    let ballOverlay = L.svgOverlay(ball, ballBounds, {
+        opacity: 0.7,
+        interactive: true
+    }).addTo(map)
+    let uni = document.querySelector('#uni')
+    let uniBounds = L.latLngBounds([41.86896561377682, 12.477185726165771], [41.868654023439426, 12.47772753238678])
+    let uniOverlay = L.svgOverlay(uni, uniBounds, {
+        opacity: 0.7,
+        interactive: true
+    }).addTo(map)
 }
 
-let tileLayer = new L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', opzioniLayer).addTo(map)
+function inserisciPOIs() {
+    let campo = L.polygon(coordsCampo, { color: '#99d98c', weight: 2, fillOpacity: 0.6 }).addTo(map)
+    let stand = L.polygon(coordsStand, { color: '#11d98c', weight: 2, fillOpacity: 0.6 }).addTo(map)
 
-let posizioneFiera = L.polygon(coordsFiera, { color: '#99d98c', weight: 2, fillOpacity: 0.6 }).addTo(map)
+    campo.on('click', function (e) {
+        let popLocation = e.latlng
+        let popup = L.popup()
+            .setLatLng(popLocation)
+            .setContent('Campo dei robot calciatori')
+            .openOn(map)
+    })
+
+    stand.on('click', function (e) {
+        let popLocation = e.latlng
+        let popup = L.popup()
+            .setLatLng(popLocation)
+            .setContent('Stand unibas')
+            .openOn(map)
+    })
+}
 
 function aggiornaMappa(body) {
     L.geoJSON(body, {
@@ -98,12 +86,6 @@ function aggiornaMappa(body) {
 
 }
 
-// marker alternativo. Da aggiungere nella creazione del marker
-// let iconaMarker = L.icon({
-//     iconUrl: '../img/marker.png',
-//     iconSize: [100, 87], // dimensioni icona
-// });
-
 function aggiornaPosizioneClient(body) {
     L.geoJSON(body, {
         onEachFeature: (feature) => {
@@ -121,5 +103,72 @@ function aggiornaPosizioneClient(body) {
     })
 }
 
+let coordsIniziali = [41.8686, 12.4774]
+// Inizializzazione mappa in zona fiera
+let map = new L.map('map').setView(coordsIniziali, 18)
+
+let coordsCampo = [
+    [
+        41.869301170903185,
+        12.476761937141418
+    ],
+    [
+        41.86894963482208,
+        12.477035522460938
+    ],
+    [
+        41.86912939783236,
+        12.477432489395142
+    ],
+    [
+        41.86948093292492,
+        12.477158904075623
+
+    ],
+    [
+        41.869301170903185,
+        12.476761937141418
+    ]
+]
+
+let coordsStand = [
+    [
+        41.868861750499754,
+        12.477126717567444
+    ],
+    [
+        41.86874190804734,
+        12.4772447347641
+    ],
+    [
+        41.86888172422,
+        12.477571964263916
+    ],
+    [
+        41.86901754535205,
+        12.477448582649231
+
+    ],
+    [
+        41.868861750499754,
+        12.477126717567444
+    ]
+]
+
+let layers = []
+
+let opzioniLayer = {
+    attribution: 'Map data &copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: access_token,
+}
+
+let tileLayer = new L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', opzioniLayer).addTo(map)
+
+inserisciPOIs()
+inserisciSvgs()
 
 

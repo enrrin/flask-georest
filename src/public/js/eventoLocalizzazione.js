@@ -13,8 +13,8 @@ let opzioniLocalizzazione = {
 async function localizzazioneConsentita(position) {
     let lat = position.coords.latitude
     let lon = position.coords.longitude
-    // let lon = 12.520388
-    // let lat = 41.932538
+    // let lat = 41.86925523163875
+    // let lon = 12.477078437805176
     let response = await findDocumenti(lat, lon)
     console.log("[INFO] -> ", response.data)
     aggiornaPagina(response.data, response.status, true)
